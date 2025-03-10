@@ -1,0 +1,191 @@
+Algoritmo para Probar los Microservicios
+1. Configuración del Entorno
+
+    Abre Visual Studio Code:
+
+        Abre Visual Studio Code y asegúrate de tener las siguientes extensiones instaladas:
+
+            Python: Para ejecutar el código Python.
+
+            Docker: Para gestionar contenedores Docker (opcional, si usas Docker).
+
+            Postman: Para probar las APIs (opcional, si prefieres usar Postman).
+
+    Clona el Repositorio:
+
+        Si tienes el código en un repositorio Git, clónalo en tu máquina local.
+
+        Si no, crea una carpeta para cada microservicio (user-service, product-service, order-service) y copia el código correspondiente en cada una.
+
+    Instala Dependencias:
+
+        Asegúrate de tener Python 3.9 o superior instalado.
+
+        Instala las dependencias necesarias para cada microservicio. Ejecuta los siguientes comandos en la terminal de Visual Studio Code:
+        bash
+        Copy
+
+        # Instalar FastAPI y Uvicorn
+        pip install fastapi uvicorn
+
+        # Instalar bcrypt para el hashing de contraseñas
+        pip install bcrypt
+
+        # Instalar PyJWT para la generación de tokens JWT
+        pip install pyjwt
+
+2. Ejecución de los Microservicios
+
+    Ejecuta el Microservicio de Gestión de Usuarios:
+
+        Abre la carpeta user-service en Visual Studio Code.
+
+        Ejecuta el siguiente comando en la terminal:
+        bash
+        Copy
+
+        uvicorn user-service:app --reload --port 8001
+
+        Esto levantará el microservicio en http://localhost:8001.
+
+    Ejecuta el Microservicio de Gestión de Productos:
+
+        Abre la carpeta product-service en Visual Studio Code.
+
+        Ejecuta el siguiente comando en la terminal:
+        bash
+        Copy
+
+        uvicorn product-service:app --reload --port 8002
+
+        Esto levantará el microservicio en http://localhost:8002.
+
+    Ejecuta el Microservicio de Pedidos:
+
+        Abre la carpeta order-service en Visual Studio Code.
+
+        Ejecuta el siguiente comando en la terminal:
+        bash
+        Copy
+
+        uvicorn order-service:app --reload --port 8003
+
+        Esto levantará el microservicio en http://localhost:8003.
+
+3. Pruebas Manuales con Postman o curl
+Pruebas en el Microservicio de Gestión de Usuarios
+
+    Registro de Usuario:
+
+        Método: POST
+
+        URL: http://localhost:8001/register
+
+        Cuerpo de la solicitud (JSON):
+        json
+        Copy
+
+        {
+          "id": "1",
+          "name": "John Doe",
+          "email": "john@example.com",
+          "password": "password123"
+        }
+
+        Respuesta esperada:
+        json
+        Copy
+
+        {
+          "status": "success",
+          "data": {
+            "id": "1",
+            "name": "John Doe",
+            "email": "john@example.com",
+            "password": "hashed_password"
+          }
+        }
+
+    Login de Usuario:
+
+        Método: POST
+
+        URL: http://localhost:8001/login
+
+        Cuerpo de la solicitud (JSON):
+        json
+        Copy
+
+        {
+          "email": "john@example.com",
+          "password": "password123"
+        }
+
+        Respuesta esperada:
+        json
+        Copy
+
+        {
+          "status": "success",
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        }
+
+Pruebas en el Microservicio de Gestión de Productos
+
+    Creación de Producto:
+
+        Método: POST
+
+        URL: http://localhost:8002/products
+
+        Cuerpo de la solicitud (JSON):
+        json
+        Copy
+
+        {
+          "id": "1",
+          "name": "Laptop",
+          "category": "Electronics",
+          "price": 1200.00
+        }
+
+        Respuesta esperada:
+        json
+        Copy
+
+        {
+          "id": "1",
+          "name": "Laptop",
+          "category": "Electronics",
+          "price": 1200.00
+        }
+
+Pruebas en el Microservicio de Pedidos
+
+    Creación de Pedido:
+
+        Método: POST
+
+        URL: http://localhost:8003/orders
+
+        Cuerpo de la solicitud (JSON):
+        json
+        Copy
+
+        {
+          "id": "1",
+          "user_id": "1",
+          "product_id": "1",
+          "quantity": 2
+        }
+
+        Respuesta esperada:
+        json
+        Copy
+
+        {
+          "id": "1",
+          "user_id": "1",
+          "product_id": "1",
+          "quantity": 2
+        }
