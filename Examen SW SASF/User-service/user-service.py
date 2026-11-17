@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from typing import Optional, List, Protocol
 import bcrypt
 import jwt
+import os
 
 app = FastAPI()
 global_database = []
@@ -83,7 +84,7 @@ class UserService:
             print("Contraseña incorrecta")  # Depuración
             raise HTTPException(status_code=400, detail="Credenciales inválidas")
         # Generar un token JWT
-        token = jwt.encode({"user_id": user["id"]}, "secret_key", algorithm="HS256")
+        token = jwt.encode({"user_id": user["id"]}, os.getenv("JWT_SECRET_KEY"), algorithm="HS256")
         return token
 
 # Observer: Interfaz para los observadores
